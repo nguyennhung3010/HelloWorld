@@ -3,7 +3,7 @@ import { FlatList, Text, View, StyleSheet, Image, Alert, Platform, TouchableHigh
 import flatListData from '../data/flatListData';
 import Swipeout from 'react-native-swipeout';
 import AddModal from './AddModal';
-// import {getFoodFromServer} from '../networking/server';
+import {getFoodsFromServer} from '../networking/server';
 class FlatListItem extends Component {
     constructor(props) {
         super(props);
@@ -34,6 +34,7 @@ class FlatListItem extends Component {
                                 {text: 'yes', onPress: () => {
                                     // splice to delete
                                     flatListData.splice(this.props.index, 1);
+                                    // this.state.foodsFromServer.splice(this.props.index, 1);
                                     // Refrest FlastList, reload UI
                                     this.props.parentFlatList.refreshFlatList(deletingRow);
                                 }}
@@ -51,15 +52,15 @@ class FlatListItem extends Component {
             <Swipeout {...swipeSetting}>
                 <View style={{flex:1, flexDirection:'column'}}>
                     <View style={{flex:1, backgroundColor:'mediumseagreen', flexDirection:'row'}}>
-                        <Image
+                        {/* <Image
                             source={{uri:this.props.item.imageUrl}}
                             style={{width:100, height:100, margin: 5}}
                         >
-                        </Image>
+                        </Image> */}
                         
                         <View style={{flexDirection:'column', flex:1}}>
-                            <Text style={styles.flatListItem}>{this.props.item.name}</Text>
-                            <Text style={styles.flatListItem}>{this.props.item.des}</Text>
+                            {/* <Text style={styles.flatListItem}>{this.props.item.name}</Text> */}
+                            <Text style={styles.flatListItem}>{this.props.item.value}</Text>
                         </View>
                     </View>
                     <View style={{height:1, color:'white'}}>
@@ -85,16 +86,31 @@ export default class BasicFlatList extends Component {
         super(props);
         this.state= ({
             deleteRowKey: null,
+            foodsFromServer:[]
         })
-        //if haven't this line, call _onPressAdd() will be error, because this.refs = null
-        //this._onPressAdd this: is _onPressAdd
+        //if haven't this line, call _onPressAdd() will be error, because this.refs = null, explaned
+        // this._onPressAdd this: is _onPressAdd
         // this._onPressAdd.bind(this)=> this: BasicFlatList's Object
         this._onPressAdd = this._onPressAdd.bind(this);
     }
+    componentDidMount(){
+        this.refreshDataFromServer();
+    }
+    refreshDataFromServer = () => {
+        getFoodsFromServer().then((foods) => {
+            this.setState({foodsFromServer: foods})
+        }).catch((error) => {
+            this.setState({foodsFromServer: []});
+        });
+    }
     refreshFlatList = (deleteKey) => {
         this.setState((prevState) => {
+            // alert("OK");
             return{deleteRowKey:deleteKey};
+            
         });
+        //after refresh, auto go to end of FlatList
+        this.refs.flatList.scrollToEnd();
     }
     _onPressAdd() {
         // alert('You add item');
@@ -114,9 +130,11 @@ export default class BasicFlatList extends Component {
             </View>
 
             <FlatList 
+                ref={'flatList'}
                 data = {flatListData}
+                // data = {this.state.foodsFromServer}
                 renderItem = {({item, index}) => {
-                    // console.log(`item=${JSON.stringify(item)}, index = ${index}`);
+                    console.log(`item=${JSON.stringify(item)}, index = ${index}`);
                     return(
                         //parentFlatList = {this}: Make FlatList as props of FlatListItem
                         <FlatListItem item = {item} index = {index} parentFlatList = {this}>

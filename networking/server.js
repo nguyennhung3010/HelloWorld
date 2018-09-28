@@ -3,9 +3,10 @@ this contain the functions that send GET, POST, DELETE, PUT request to server
 */
 import React, {Component} from 'react';
 import { FlatList, ActivityIndicator, Text, View, SectionList, Alert, Platform  } from 'react-native';
-const apiGetAllFood = ''
+const apiGetAllFood = 'https://www.getpostman.com/collections/3e80f9df2c625cf261b4';
+const apiGetAllMovie = 'https://facebook.github.io/react-native/movies.json';
 //async: hàm thực hiện không đồng bộ, send and receive data from server
-async function getFoodFromServer() {
+async function getFoodsFromServer() {
     try{
         // get data from server
         let response = await fetch(apiGetAllFood);
@@ -23,9 +24,10 @@ async function getFoodFromServer() {
                 name:
                 imageUrl:
                 des: */
-        return responseJson.data;
+       console.log(responseJson.requests[0].queryParams);
+        return responseJson.requests[0].queryParams;
     }catch(error) {
 
     }
 }
-export {getFoodFromServer}
+export {getFoodsFromServer}
