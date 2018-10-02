@@ -28,6 +28,18 @@ var flatListData = [
         value: 'Cream socola tea',
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Cornish_cream_tea_2.jpg/220px-Cornish_cream_tea_2.jpg',
         description: 'This is a cup of cream tea'
+    },
+    {
+        key: '6',
+        value: 'Cream donut',
+        imageUrl: 'https://cms.splendidtable.org/sites/default/files/helloicecream-cover.jpg',
+        description: 'This is a cup of cream tea'
+    },
+    {
+        key: '7',
+        value: 'Cream socola tea',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Cornish_cream_tea_2.jpg/220px-Cornish_cream_tea_2.jpg',
+        description: 'This is a cup of cream tea'
     }
 ]
 module.exports = flatListData;
