@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { FlatList, ActivityIndicator, Text, View, StyleSheet, Image, ScrollView, Dimensions  } from 'react-native';
+import { 
+    FlatList, 
+    ActivityIndicator, 
+    Text, View, 
+    StyleSheet, 
+    Image, 
+    ScrollView, 
+    Dimensions, 
+    TouchableHighlight, 
+    Platform  } from 'react-native';
 import flatListData from '../data/flatListData';
 import nonActiveCrisisList from '../data/constData';
 
@@ -8,20 +17,24 @@ class Item extends Component{
     // constructor(props) {
     //     super(props);
     // }
+    _onPress=()=>{
+        alert('OKE');
+    }
     render(){
         return(
-            <View style={styles.flatListItem}>
-                <TouchableHighLight>
-                    <Image
-                        source={{uri:this.props.item.imageUrl}}
-                        style={styles.imageStyle}
-                    />
-                    <View>
-                        <Text> {this.props.item.value}</Text>
-                        <Text> {this.props.item.description}</Text>
-                    </View>
-                </TouchableHighLight>
-            </View>
+            <TouchableHighlight onPress={this._onPress} style={styles.flatListItem}>
+                <View  style={{flexDirection:'row'}}>
+                        <Image
+                            source={{uri:this.props.item.imageUrl}}
+                            style={styles.imageStyle}
+                        />
+                        <View>
+                            <Text> {this.props.item.value}</Text>
+                            <Text> {this.props.item.description}</Text>
+                        </View>
+                </View>
+             </TouchableHighlight>
+            
         );
     }
 }
@@ -34,13 +47,15 @@ const styles = StyleSheet.create({
         // margin:5, 
         marginTop: 15,
         borderRadius:5, 
-        shadowRadius: 10, 
+        elevation: 5,
+        // shadowRadius: 10, 
+        // shadowOpacity: Platform.OS === 'ios'? 10: 20,
         // height:70, 
         borderColor:'grey', 
         borderWidth: 1,
         // backgroundColor: 'mediumseagreen',
         flex:1,
-        flexDirection:'row',
+        
         color: 'grey',
         // padding: 10,
         fontSize: 16,  

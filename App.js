@@ -4,11 +4,13 @@ import BasicFlatList from './component/BasicFlatList';
 import BasicSectionList from './component/BasicSectionList';
 import LifeCycleComponent from './component/LifeCycle';
 import ListData from './component/Notification';
+import Warning from './component/Warning';
 export default class App extends Component {
   render() {
     return (
         <View>
-          <ListData />
+          <Warning />
+          {/* <ListData /> */}
           {/* <BasicSectionList /> */}
           {/* <LifeCycleComponent /> */}
         </View>
