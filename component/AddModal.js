@@ -31,8 +31,8 @@ export default class AddModal extends Component {
             <Modal 
                 ref='modal'
                 style={{
-                    width:screen.width-180, 
-                    height: 280, 
+                    width:screen.width*3/5, 
+                    height: screen.height/3, 
                     justifyContent: 'center', 
                     shadowRadius: 10,
                     alignItems:'center',
@@ -73,16 +73,6 @@ export default class AddModal extends Component {
                     value={this.state.newFoodDes}
                     > 
                 </TextInput>
-                
-                {/* <Button
-                    style = {{color:'red', fontSize:18, height: 40}}
-                    title='save'
-                    containerStyle={{
-                        // backgroundColor='mediumseagreen',
-                        borderRadius:6,
-
-                    }}
-                /> */}
 
                  <TouchableHighlight
                     onPress={() => {
